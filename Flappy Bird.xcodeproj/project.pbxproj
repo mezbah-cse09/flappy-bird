@@ -14,11 +14,11 @@
 		796BA4C71BB98B4000B1489A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4C51BB98B4000B1489A /* Main.storyboard */; };
 		796BA4C91BB98B4000B1489A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4C81BB98B4000B1489A /* Assets.xcassets */; };
 		796BA4CC1BB98B4000B1489A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4CA1BB98B4000B1489A /* LaunchScreen.storyboard */; };
-		796BA4D81BB996D700B1489A /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D31BB996D600B1489A /* bg.png */; settings = {ASSET_TAGS = (); }; };
-		796BA4D91BB996D700B1489A /* flappy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D41BB996D700B1489A /* flappy1.png */; settings = {ASSET_TAGS = (); }; };
-		796BA4DA1BB996D700B1489A /* flappy2.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D51BB996D700B1489A /* flappy2.png */; settings = {ASSET_TAGS = (); }; };
-		796BA4DB1BB996D700B1489A /* pipe1.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D61BB996D700B1489A /* pipe1.png */; settings = {ASSET_TAGS = (); }; };
-		796BA4DC1BB996D700B1489A /* pipe2.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D71BB996D700B1489A /* pipe2.png */; settings = {ASSET_TAGS = (); }; };
+		796BA4D81BB996D700B1489A /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D31BB996D600B1489A /* bg.png */; };
+		796BA4D91BB996D700B1489A /* flappy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D41BB996D700B1489A /* flappy1.png */; };
+		796BA4DA1BB996D700B1489A /* flappy2.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D51BB996D700B1489A /* flappy2.png */; };
+		796BA4DB1BB996D700B1489A /* pipe1.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D61BB996D700B1489A /* pipe1.png */; };
+		796BA4DC1BB996D700B1489A /* pipe2.png in Resources */ = {isa = PBXBuildFile; fileRef = 796BA4D71BB996D700B1489A /* pipe2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,13 +72,13 @@
 				796BA4BF1BB98B4000B1489A /* GameScene.sks */,
 				796BA4C11BB98B4000B1489A /* GameScene.swift */,
 				796BA4C31BB98B4000B1489A /* GameViewController.swift */,
+				796BA4C51BB98B4000B1489A /* Main.storyboard */,
+				796BA4C81BB98B4000B1489A /* Assets.xcassets */,
 				796BA4D31BB996D600B1489A /* bg.png */,
 				796BA4D41BB996D700B1489A /* flappy1.png */,
 				796BA4D51BB996D700B1489A /* flappy2.png */,
 				796BA4D61BB996D700B1489A /* pipe1.png */,
 				796BA4D71BB996D700B1489A /* pipe2.png */,
-				796BA4C51BB98B4000B1489A /* Main.storyboard */,
-				796BA4C81BB98B4000B1489A /* Assets.xcassets */,
 				796BA4CA1BB98B4000B1489A /* LaunchScreen.storyboard */,
 				796BA4CD1BB98B4000B1489A /* Info.plist */,
 			);
@@ -111,12 +111,13 @@
 		796BA4B21BB98B4000B1489A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Guilherme Souza";
 				TargetAttributes = {
 					796BA4B91BB98B4000B1489A = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = ELTTE7K8TT;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -203,8 +204,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -247,8 +250,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -267,6 +272,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -279,6 +285,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.grsouza.Flappy-Bird";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -291,6 +298,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.grsouza.Flappy-Bird";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

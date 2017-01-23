@@ -34,9 +34,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Define os tipos de colisões de corpos
     enum ColliderType: UInt32 {
-        case Bird = 1
-        case Object = 2
-        case Gap = 4
+        case bird = 1
+        case object = 2
+        case gap = 4
     }
     
     /*
@@ -50,28 +50,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let bgTexture = SKTexture(imageNamed: "bg.png")
         
         // Define o movimento do fundo para a esquerda.
-        let moveBg = SKAction.moveByX(-bgTexture.size().width, y: 0, duration: 9)
+        let moveBg = SKAction.moveBy(x: -bgTexture.size().width, y: 0, duration: 9)
         
         // Define o movimento do fundo de volta ao começo instantaneamente
-        let replaceBg = SKAction.moveByX(bgTexture.size().width, y: 0, duration: 0)
+        let replaceBg = SKAction.moveBy(x: bgTexture.size().width, y: 0, duration: 0)
         
         // Define uma ação que repete a sequencia de movimentos para sempre
-        let moveBgForever = SKAction.repeatActionForever(SKAction.sequence([moveBg, replaceBg]))
+        let moveBgForever = SKAction.repeatForever(SKAction.sequence([moveBg, replaceBg]))
         
         // Adiciona 3 fundos que vão aparecendo periodicamente
-        for var i: CGFloat = 0; i < 3; i++ {
+        for i in 0...3 {
             
             bg = SKSpriteNode(texture: bgTexture)
             
             // Define a posição do bg como sendo o centro da imagem no centro do frame
-            bg.position = CGPoint(x: bgTexture.size().width/2 + bgTexture.size().width * i, y: CGRectGetMidY(self.frame))
+            bg.position = CGPoint(x: bgTexture.size().width/2 + bgTexture.size().width * CGFloat(integerLiteral: i), y: self.frame.midY)
             
             // Define a largura do fundo como a largura do frame, no caso a largura do dispositivo
             bg.size.height = self.frame.height
             bg.zPosition = -5
             
             // Execulta a ação definida acima
-            bg.runAction(moveBgForever)
+            bg.run(moveBgForever)
             
             // Adiciona a sena ao objeto
             movingObjects.addChild(bg)
@@ -95,7 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let pipeOffset = CGFloat(movementAmount) - self.frame.size.height/4
         
         // Define o movimento dos canos para a esquerda
-        let movePipes = SKAction.moveByX(-self.frame.size.width * 2, y: 0, duration: NSTimeInterval(self.frame.size.width / 100))
+        let movePipes = SKAction.moveBy(x: -self.frame.size.width * 2, y: 0, duration: TimeInterval(self.frame.size.width / 100))
         
         // Remove o cano quando chega ao final do frame
         let removePipes = SKAction.removeFromParent()
@@ -104,61 +104,61 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveAndRemovePipes = SKAction.sequence([movePipes, removePipes])
         
         // Define o cano de cima
-        var pipeTexture = SKTexture(imageNamed: "pipe1.png")
+        let pipeTexture = SKTexture(imageNamed: "pipe1.png")
         pipe1 = SKSpriteNode(texture: pipeTexture)
-        pipe1.position = CGPoint(x: CGRectGetMidX(self.frame) + self.frame.size.width, y: CGRectGetMidY(self.frame) + pipeTexture.size().height/2 + gapHeight/2 + pipeOffset)
-        pipe1.runAction(moveAndRemovePipes)
+        pipe1.position = CGPoint(x: self.frame.midX + self.frame.size.width, y: self.frame.midY + pipeTexture.size().height/2 + gapHeight/2 + pipeOffset)
+        pipe1.run(moveAndRemovePipes)
         
         // Adiciona um corpo ao cano
-        pipe1.physicsBody = SKPhysicsBody(rectangleOfSize: pipeTexture.size())
+        pipe1.physicsBody = SKPhysicsBody(rectangleOf: pipeTexture.size())
         
         // "Desligar" a gravidade
-        pipe1.physicsBody?.dynamic = false
+        pipe1.physicsBody?.isDynamic = false
         
         // Define a categoria do objeto e colisões
-        pipe1.physicsBody?.categoryBitMask = ColliderType.Object.rawValue
-        pipe1.physicsBody?.contactTestBitMask = ColliderType.Object.rawValue
-        pipe1.physicsBody?.collisionBitMask = ColliderType.Object.rawValue
+        pipe1.physicsBody?.categoryBitMask = ColliderType.object.rawValue
+        pipe1.physicsBody?.contactTestBitMask = ColliderType.object.rawValue
+        pipe1.physicsBody?.collisionBitMask = ColliderType.object.rawValue
         
         // Adiciona a sena ao objeto
         movingObjects.addChild(pipe1)
         
         // Define o cano de baixo
-        var pipe2Texture = SKTexture(imageNamed: "pipe2.png")
+        let pipe2Texture = SKTexture(imageNamed: "pipe2.png")
         pipe2 = SKSpriteNode(texture: pipe2Texture)
-        pipe2.position = CGPoint(x: CGRectGetMidX(self.frame) + self.frame.size.width, y: CGRectGetMidY(self.frame) - pipe2Texture.size().height/2 - gapHeight/2 + pipeOffset)
-        pipe2.runAction(moveAndRemovePipes)
+        pipe2.position = CGPoint(x: self.frame.midX + self.frame.size.width, y: self.frame.midY - pipe2Texture.size().height/2 - gapHeight/2 + pipeOffset)
+        pipe2.run(moveAndRemovePipes)
         
         // Adiciona um corpo ao cano
-        pipe2.physicsBody = SKPhysicsBody(rectangleOfSize: pipe2Texture.size())
+        pipe2.physicsBody = SKPhysicsBody(rectangleOf: pipe2Texture.size())
         
         // "Desligar" a gravidade
-        pipe2.physicsBody?.dynamic = false
+        pipe2.physicsBody?.isDynamic = false
         
         // Define a categoria do objeto e colisões
-        pipe2.physicsBody?.categoryBitMask = ColliderType.Object.rawValue
-        pipe2.physicsBody?.contactTestBitMask = ColliderType.Object.rawValue
-        pipe2.physicsBody?.collisionBitMask = ColliderType.Object.rawValue
+        pipe2.physicsBody?.categoryBitMask = ColliderType.object.rawValue
+        pipe2.physicsBody?.contactTestBitMask = ColliderType.object.rawValue
+        pipe2.physicsBody?.collisionBitMask = ColliderType.object.rawValue
         
         // Adiciona a sena ao objeto
         movingObjects.addChild(pipe2)
         
         // Define um objeto entre os canos para testar se o pássaro passou ou não pelos canos
-        var gap = SKNode()
-        gap.position = CGPoint(x: CGRectGetMidX(self.frame) + self.frame.size.width, y: CGRectGetMidY(self.frame) + pipeOffset)
-        gap.runAction(moveAndRemovePipes)
-        gap.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(pipeTexture.size().width / 2, gapHeight))
-        gap.physicsBody?.dynamic = false
+        let gap = SKNode()
+        gap.position = CGPoint(x: self.frame.midX + self.frame.size.width, y: self.frame.midY + pipeOffset)
+        gap.run(moveAndRemovePipes)
+        gap.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: pipeTexture.size().width / 2, height: gapHeight))
+        gap.physicsBody?.isDynamic = false
         
-        gap.physicsBody?.categoryBitMask = ColliderType.Gap.rawValue
-        gap.physicsBody?.contactTestBitMask = ColliderType.Bird.rawValue
-        gap.physicsBody?.collisionBitMask = ColliderType.Gap.rawValue
+        gap.physicsBody?.categoryBitMask = ColliderType.gap.rawValue
+        gap.physicsBody?.contactTestBitMask = ColliderType.bird.rawValue
+        gap.physicsBody?.collisionBitMask = ColliderType.gap.rawValue
         
         movingObjects.addChild(gap)
         
     }
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
         self.physicsWorld.contactDelegate = self
         
@@ -173,7 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.fontName = "Helvetica"
         scoreLabel.fontSize = 60
         scoreLabel.text = "0"
-        scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 70)
+        scoreLabel.position = CGPoint(x: self.frame.midX, y: self.frame.size.height - 70)
         self.addChild(scoreLabel)
         
         /*
@@ -187,27 +187,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let birdTexture2 = SKTexture(imageNamed: "flappy2.png")
         
         // Ocila entre as imagens para dar movimento ao pássaro
-        let animation = SKAction.animateWithTextures([birdTexture, birdTexture2], timePerFrame: 0.1)
-        let makeBirdFlap = SKAction.repeatActionForever(animation)
+        let animation = SKAction.animate(with: [birdTexture, birdTexture2], timePerFrame: 0.1)
+        let makeBirdFlap = SKAction.repeatForever(animation)
         
         bird = SKSpriteNode(texture: birdTexture)
         
-        bird.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        bird.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         // Execulta a ação de animar o pássaro
-        bird.runAction(makeBirdFlap)
+        bird.run(makeBirdFlap)
         
         // Adiciona um corpo ao pássaro com gravidade
         bird.physicsBody = SKPhysicsBody(circleOfRadius: birdTexture.size().height / 2)
-        bird.physicsBody?.dynamic = true
+        bird.physicsBody?.isDynamic = true
         
         // Desabilita a rotação do corpo
         bird.physicsBody?.allowsRotation = false
         
         // Define a categoria de colisão
-        bird.physicsBody?.categoryBitMask = ColliderType.Bird.rawValue
-        bird.physicsBody?.contactTestBitMask = ColliderType.Object.rawValue
-        bird.physicsBody?.collisionBitMask = ColliderType.Object.rawValue
+        bird.physicsBody?.categoryBitMask = ColliderType.bird.rawValue
+        bird.physicsBody?.contactTestBitMask = ColliderType.object.rawValue
+        bird.physicsBody?.collisionBitMask = ColliderType.object.rawValue
         
         self.addChild(bird)
         
@@ -217,31 +217,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ==========================
         */
         // Define o chão sem gravidade, pois geralemente o chão não despenca do nada :)
-        var ground = SKNode()
-        ground.position = CGPointMake(0, 0)
-        ground.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(self.frame.size.width, 1))
-        ground.physicsBody?.dynamic = false
+        let ground = SKNode()
+        ground.position = CGPoint(x: 0, y: 0)
+        ground.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.size.width, height: 1))
+        ground.physicsBody?.isDynamic = false
         
         // Adiciona o chão a mesma categoria que os canos
-        ground.physicsBody?.categoryBitMask = ColliderType.Object.rawValue
-        ground.physicsBody?.contactTestBitMask = ColliderType.Object.rawValue
-        ground.physicsBody?.collisionBitMask = ColliderType.Object.rawValue
+        ground.physicsBody?.categoryBitMask = ColliderType.object.rawValue
+        ground.physicsBody?.contactTestBitMask = ColliderType.object.rawValue
+        ground.physicsBody?.collisionBitMask = ColliderType.object.rawValue
         
         self.addChild(ground)
         
         
         // Repete a função makePipes a cada 3 segundos
-        _ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "makePipes", userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(GameScene.makePipes), userInfo: nil, repeats: true)
         
         
     }
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
         
         // Checar se houve contato com objetos da categoria Gap, o que indica que o pássaro passou pelos canos
-        if contact.bodyA.categoryBitMask == ColliderType.Gap.rawValue || contact.bodyB.categoryBitMask == ColliderType.Gap.rawValue {
+        if contact.bodyA.categoryBitMask == ColliderType.gap.rawValue || contact.bodyB.categoryBitMask == ColliderType.gap.rawValue {
             // Adiciona 1 ao score
-            score++
+            score += 1
             scoreLabel.text = String(score)
         } else {
             // Precimos checar se gameOver é falso pois quando o pássaro cai no chão ele bate umas 3 vezes no chão rodando esta função na primera mas dando crash nas outras duas.
@@ -257,7 +257,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 gameOverLabel.fontName = "Helvetica"
                 gameOverLabel.fontSize = 30
                 gameOverLabel.text = "Game Over! Tap to play again."
-                gameOverLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
+                gameOverLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                 labelContainer.addChild(gameOverLabel)
             }
         }
@@ -265,15 +265,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
         
         // Se game over é falso quer dizer o jogador ainda não perdeu
         if gameOver == false {
-            
             // Adiona um impulso de valor 80 no eixo y fazendo o pássaro voar
-            bird.physicsBody?.velocity = CGVectorMake(0, 0)
-            bird.physicsBody?.applyImpulse(CGVectorMake(0, 80))
+            bird.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 80))
         } else {
             // Se gameOver é true então quer dizer que houve colisão com objetos que não são do tipo Gap
             
@@ -281,8 +280,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             score = 0
             scoreLabel.text = "0"
             
-            bird.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
-            bird.physicsBody?.velocity = CGVectorMake(0, 0)
+            bird.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            bird.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             
             movingObjects.removeAllChildren()
             makeBg()
